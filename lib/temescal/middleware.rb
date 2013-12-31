@@ -1,7 +1,7 @@
 require 'json'
 
 module Temescal
-  class Builder
+  class Middleware
     def initialize(app, &block)
       @app = app
       yield(configuration)
@@ -44,9 +44,5 @@ module Temescal
         }.to_json
       ]
     end
-  end
-
-  class Configuration
-    attr_accessor :logger
   end
 end

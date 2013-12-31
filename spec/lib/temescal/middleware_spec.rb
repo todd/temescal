@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'logger'
 
-describe Temescal::Builder do
+describe Temescal::Middleware do
   context "Ok response" do
     let(:app) { ->(env) { [200, env, "app" ] } }
 
     let(:middleware) do
-      Temescal::Builder.new(app) do |config|
+      Temescal::Middleware.new(app) do |config|
         config.logger = Logger.new(STDOUT)
       end
     end
@@ -26,7 +26,7 @@ describe Temescal::Builder do
     let(:app) { ->(env) { raise StandardError.new("Foobar") } }
 
     let(:middleware) do
-      Temescal::Builder.new(app) do |config|
+      Temescal::Middleware.new(app) do |config|
         config.logger = Logger.new('test.log')
       end
     end
