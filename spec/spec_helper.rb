@@ -1,8 +1,9 @@
 require 'simplecov'
-Simplecov.start
+SimpleCov.start
 
-require 'rack-test'
+require 'rack'
 require 'temescal'
+require 'awesome_print'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

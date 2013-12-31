@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gemspec
+
 gem 'rake'
 
 group :development, :test do
@@ -9,9 +11,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rack-test'
   gem 'rspec'
   gem 'simplecov', require: false
 end
-
-gemspec

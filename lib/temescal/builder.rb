@@ -1,3 +1,5 @@
+require 'json'
+
 module Temescal
   class Builder
     def initialize(app, &block)
@@ -13,8 +15,8 @@ module Temescal
       begin
         @status, @headers, @response = @app.call(env)
       rescue => error
-        configuration.logger.error(error.inspect)
-        configuration.logger.error(formatted_backtrace(error.backtrace))
+        logger = configuration.logger
+        logger.fatal(formatted_error(error))
 
         @status = 500
         @headers = {"Content-Type" => "application/json"}
@@ -25,10 +27,10 @@ module Temescal
 
     private
 
-    def formatted_backtrace(backtrace)
-      backtrace.inject("") do |string, line|
-        string << "    #{line}\n"
-      end
+    def formatted_error(error)
+      message = "\n#{error.inspect}\n  "
+      message << error.backtrace.join("\n  ")
+      message << "\n\n"
     end
 
     def build_response(error)
