@@ -4,7 +4,7 @@ module Temescal
   class Middleware
     def initialize(app, &block)
       @app = app
-      yield(configuration)
+      yield(configuration) if block
     end
 
     def configuration
@@ -15,8 +15,7 @@ module Temescal
       begin
         @status, @headers, @response = @app.call(env)
       rescue => error
-        logger = configuration.logger
-        logger.fatal(formatted_error(error))
+        $stderr.print formatted_error(error)
 
         @status = 500
         @headers = {"Content-Type" => "application/json"}

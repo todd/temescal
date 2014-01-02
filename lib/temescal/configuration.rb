@@ -1,3 +1,4 @@
 class Configuration
-  attr_accessor :logger
+  # Not sure we'll need this.
+  # attr_accessor :logger
 end

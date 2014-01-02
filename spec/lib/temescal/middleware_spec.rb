@@ -6,9 +6,7 @@ describe Temescal::Middleware do
     let(:app) { ->(env) { [200, env, "app" ] } }
 
     let(:middleware) do
-      Temescal::Middleware.new(app) do |config|
-        config.logger = Logger.new(STDOUT)
-      end
+      Temescal::Middleware.new(app)
     end
 
     it "should render the application's response" do
@@ -20,15 +18,13 @@ describe Temescal::Middleware do
 
   context "Bad response" do
     before do
-      File.delete('test.log') if File.exists? 'test.log'
+      $stderr.stub(:print)
     end
 
     let(:app) { ->(env) { raise StandardError.new("Foobar") } }
 
     let(:middleware) do
-      Temescal::Middleware.new(app) do |config|
-        config.logger = Logger.new('test.log')
-      end
+      Temescal::Middleware.new(app)
     end
 
     it "should respond with a 500" do
@@ -53,10 +49,9 @@ describe Temescal::Middleware do
     end
 
     it "should log the error" do
-      middleware.call env_for('http://foobar.com')
+      expect($stderr).to receive(:print).with(an_instance_of String)
 
-      file = File.open('test.log', 'rb').to_a
-      expect(file[2]).to eq "#<StandardError: Foobar>\n"
+      middleware.call env_for('http://foobar.com')
     end
   end
 
