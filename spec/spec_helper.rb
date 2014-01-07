@@ -1,6 +1,9 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'rack'
 require 'temescal'
 require 'awesome_print'
