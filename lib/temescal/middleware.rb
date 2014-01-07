@@ -7,14 +7,12 @@ module Temescal
       yield(configuration) if block
     end
 
-    def configuration
-      @_configuration ||= Configuration.new
-    end
-
     def call(env)
       begin
         @status, @headers, @response = @app.call(env)
       rescue => error
+        raise if configuration.raise_errors?
+
         $stderr.print formatted_error(error)
 
         @status = 500
@@ -26,8 +24,12 @@ module Temescal
 
     private
 
+    def configuration
+      @_configuration ||= Configuration.new
+    end
+
     def formatted_error(error)
-      message = "\n#{error.inspect}\n  "
+      message = "\n#{error.class}: #{error.message}\n  "
       message << error.backtrace.join("\n  ")
       message << "\n\n"
     end

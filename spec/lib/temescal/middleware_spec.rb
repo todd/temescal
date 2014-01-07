@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'logger'
 
 describe Temescal::Middleware do
   context "Ok response" do
@@ -52,6 +51,24 @@ describe Temescal::Middleware do
       expect($stderr).to receive(:print).with(an_instance_of String)
 
       middleware.call env_for('http://foobar.com')
+    end
+  end
+
+  context "Override middleware to raise exception" do
+    before do
+      $stderr.stub(:print)
+    end
+
+    let(:app) { ->(env) { raise StandardError.new("Foobar") } }
+
+    let(:middleware) do
+      Temescal::Middleware.new(app) do |config|
+        config.raise_errors = true
+      end
+    end
+
+    it "should raise the error" do
+      expect { middleware.call env_for("http://foobar.com") }.to raise_error StandardError
     end
   end
 
