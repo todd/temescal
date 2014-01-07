@@ -18,6 +18,10 @@ describe Temescal::Middleware do
   context "Bad response" do
     before do
       $stderr.stub(:print)
+
+      # Travis automatically sets RACK_ENV=test
+      # Need to override for tests to run correctly.
+      ENV["RACK_ENV"] = nil
     end
 
     let(:app) { ->(env) { raise StandardError.new("Foobar") } }
