@@ -1,13 +1,16 @@
-require 'simplecov'
-SimpleCov.start
+if ENV['CI'] == 'true'
+  require 'coveralls'
+  Coveralls.wear!
+else
+  require 'awesome_print'
+  require 'pry-debugger'
 
-require 'coveralls'
-Coveralls.wear!
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require 'rack'
 require 'temescal'
-require 'awesome_print'
-require 'pry-debugger'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

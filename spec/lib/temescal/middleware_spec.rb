@@ -30,10 +30,18 @@ describe Temescal::Middleware do
       Temescal::Middleware.new(app)
     end
 
-    it "should respond with a 500" do
+    it "should respond with a 500 if the exception does not have a http_status attribute" do
       code, _, _ = middleware.call env_for("http://foobar.com")
 
       expect(code).to eq 500
+    end
+
+    it "should respond with the appropriate status if the exception has a http_status attribute" do
+      StandardError.any_instance.stub(:http_status).and_return(403)
+
+      code, _, _ = middleware.call env_for("http://foobar.com")
+
+      expect(code).to eq 403
     end
 
     it "should set the correct content type header" do

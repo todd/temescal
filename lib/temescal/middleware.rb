@@ -1,5 +1,3 @@
-require 'json'
-
 module Temescal
   class Middleware
     def initialize(app, &block)
@@ -13,11 +11,12 @@ module Temescal
       rescue => error
         raise if configuration.raise_errors?
 
-        $stderr.print formatted_error(error)
+        @error = error
+        $stderr.print formatted_error
 
-        @status = 500
-        @headers = {"Content-Type" => "application/json"}
-        @response = build_response(error)
+        @status   = @error.respond_to?(:http_status) ? @error.http_status : 500
+        @headers  = {"Content-Type" => "application/json"}
+        @response = Temescal::Response.build(@status, @error)
       end
       [@status, @headers, @response]
     end
@@ -28,22 +27,10 @@ module Temescal
       @_configuration ||= Configuration.new
     end
 
-    def formatted_error(error)
-      message = "\n#{error.class}: #{error.message}\n  "
-      message << error.backtrace.join("\n  ")
+    def formatted_error
+      message = "\n#{@error.class}: #{@error.message}\n  "
+      message << @error.backtrace.join("\n  ")
       message << "\n\n"
-    end
-
-    def build_response(error)
-      [
-        {
-          meta: {
-            status:  @status,
-            error:   error.class.to_s,
-            message: error.message
-          }
-        }.to_json
-      ]
     end
   end
 end

@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gemspec
+
+gem 'rake'
+
+group :ci do
+  gem 'rspec'
+  gem 'coveralls', require: false
+end
