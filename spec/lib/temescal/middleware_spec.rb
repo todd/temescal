@@ -17,6 +17,7 @@ describe Temescal::Middleware do
 
   context "Bad response" do
     before do
+      Temescal::Monitors::NewRelic.stub(:report)
       $stderr.stub(:print)
 
       # Travis automatically sets RACK_ENV=test
@@ -27,7 +28,9 @@ describe Temescal::Middleware do
     let(:app) { ->(env) { raise StandardError.new("Foobar") } }
 
     let(:middleware) do
-      Temescal::Middleware.new(app)
+      Temescal::Middleware.new(app) do |config|
+        config.monitors = :new_relic
+      end
     end
 
     it "should respond with a 500 if the exception does not have a http_status attribute" do
@@ -62,7 +65,13 @@ describe Temescal::Middleware do
     it "should log the error" do
       expect($stderr).to receive(:print).with(an_instance_of String)
 
-      middleware.call env_for('http://foobar.com')
+      middleware.call env_for("http://foobar.com")
+    end
+
+    it "should report the error to the specified monitors" do
+      expect(Temescal::Monitors::NewRelic).to receive(:report).with(an_instance_of StandardError)
+
+      middleware.call env_for("http://foobar.com")
     end
   end
 

@@ -14,9 +14,11 @@ module Temescal
         @error = error
         $stderr.print formatted_error
 
+        configuration.monitors.each { |monitor| monitor.report(@error) }
+
         @status   = @error.respond_to?(:http_status) ? @error.http_status : 500
-        @headers  = {"Content-Type" => "application/json"}
-        @response = Temescal::Response.build(@status, @error)
+        @response = Response.build(@status, @error)
+        @headers  = { "Content-Type"   => "application/json" }
       end
       [@status, @headers, @response]
     end
