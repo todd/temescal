@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Temescal::Middleware do
   context "Ok response" do

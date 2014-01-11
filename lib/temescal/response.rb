@@ -1,7 +1,7 @@
 require 'json'
 
 module Temescal
-  class Response
+  module Response
     def self.build(status, error)
       [
         {

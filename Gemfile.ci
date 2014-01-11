@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rake'
+
+# Monitor Gems
+gem 'airbrake'
 gem 'newrelic_rpm'
 
 group :ci do

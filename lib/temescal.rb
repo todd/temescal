@@ -1,6 +1,6 @@
 module Temescal
-  autoload :Configuration, 'temescal/configuration'
-  autoload :Middleware,    'temescal/middleware'
-  autoload :Monitors,      'temescal/monitors'
-  autoload :Response,      'temescal/response'
+  require 'temescal/configuration'
+  require 'temescal/middleware'
+  require 'temescal/monitors'
+  require 'temescal/response'
 end

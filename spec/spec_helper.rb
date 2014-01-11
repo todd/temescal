@@ -1,4 +1,4 @@
-if ENV['CI'] == 'true'
+if ENV['CI']
   require 'coveralls'
   Coveralls.wear!
 else
@@ -10,6 +10,10 @@ else
 end
 
 require 'rack'
+
+require 'airbrake'
+require 'newrelic_rpm'
+
 require 'temescal'
 
 RSpec.configure do |config|
