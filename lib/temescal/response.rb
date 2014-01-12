@@ -2,13 +2,13 @@ require 'json'
 
 module Temescal
   module Response
-    def self.build(status, error)
+    def self.build(status, error, message)
       [
         {
           meta: {
             status:  status,
             error:   error.class.to_s,
-            message: error.message
+            message: message
           }
         }.to_json
       ]

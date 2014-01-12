@@ -11,13 +11,14 @@ module Temescal
       rescue => error
         raise if configuration.raise_errors?
 
-        @error = error
-        $stderr.print formatted_error
+        @error  = error
+        message = configuration.default_message || @error.message
 
+        $stderr.print formatted_error
         configuration.monitors.each { |monitor| monitor.report(@error) }
 
         @status   = @error.respond_to?(:http_status) ? @error.http_status : 500
-        @response = Response.build(@status, @error)
+        @response = Response.build(@status, @error, message)
         @headers  = { "Content-Type"   => "application/json" }
       end
       [@status, @headers, @response]

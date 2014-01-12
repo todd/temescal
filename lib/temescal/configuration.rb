@@ -3,6 +3,8 @@ module Temescal
     attr_reader :monitors
     attr_writer :raise_errors
 
+    attr_accessor :default_message
+
     def initialize
       @monitors = []
     end

@@ -54,7 +54,7 @@ describe Temescal::Middleware do
     end
 
     it "should render a JSON response for the error" do
-      _, _, response = middleware.call env_for('http://foobar.com')
+      _, _, response = middleware.call env_for("http://foobar.com")
 
       json = JSON.parse(response.first)["meta"]
       expect(json["status"]).to  eq 500
@@ -72,6 +72,19 @@ describe Temescal::Middleware do
       expect(Temescal::Monitors::NewRelic).to receive(:report).with(an_instance_of StandardError)
 
       middleware.call env_for("http://foobar.com")
+    end
+
+    context "with default_message set" do
+      it "should build a response with the specified message instead of the exception message" do
+        middleware = Temescal::Middleware.new(app) do |config|
+          config.default_message = "An error has occured - we'll get on it right away!"
+        end
+
+        _, _, response = middleware.call env_for("http://foobar.com")
+
+        json = JSON.parse(response.first)["meta"]
+        expect(json["message"]).to eq "An error has occured - we'll get on it right away!"
+      end
     end
   end
 
