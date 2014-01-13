@@ -1,7 +1,7 @@
 temescal
 ========
 
-[![Gem Version](https://badge.fury.io/rb/temescal.png)](http://badge.fury.io/rb/temescal)[![Build Status](https://travis-ci.org/todd/temescal.png?branch=master)](https://travis-ci.org/todd/temescal) [![Coverage Status](https://coveralls.io/repos/todd/temescal/badge.png?branch=master)](https://coveralls.io/r/todd/temescal?branch=master) [![Code Climate](https://codeclimate.com/github/todd/temescal.png)](https://codeclimate.com/github/todd/temescal) [![Dependency Status](https://gemnasium.com/todd/temescal.png)](https://gemnasium.com/todd/temescal)
+[![Gem Version](https://badge.fury.io/rb/temescal.png)](http://badge.fury.io/rb/temescal) [![Build Status](https://travis-ci.org/todd/temescal.png?branch=master)](https://travis-ci.org/todd/temescal) [![Coverage Status](https://coveralls.io/repos/todd/temescal/badge.png?branch=master)](https://coveralls.io/r/todd/temescal?branch=master) [![Code Climate](https://codeclimate.com/github/todd/temescal.png)](https://codeclimate.com/github/todd/temescal) [![Dependency Status](https://gemnasium.com/todd/temescal.png)](https://gemnasium.com/todd/temescal)
 
 Temescal is Rack middleware that will automatically rescue exceptions for JSON APIs and render a nice, clean JSON response with the error information. No need to write custom error handling logic for your apps - Temescal will take care of it for you!
 ## Getting Started
