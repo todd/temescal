@@ -1,5 +1,6 @@
 module Temescal
   class Middleware
+    NOT_FOUND_ERRORS = ["ActiveRecord::RecordNotFound", "Sinatra::NotFound"]
 
     # Public: Initializes the middleware.
     #
@@ -31,7 +32,7 @@ module Temescal
         $stderr.print formatted_error
         configuration.monitors.each { |monitor| monitor.report(@error) }
 
-        @status   = @error.respond_to?(:http_status) ? @error.http_status : 500
+        @status   = set_status
         @response = Response.build(@status, @error, message)
         @headers  = { "Content-Type"   => "application/json" }
       end
@@ -50,6 +51,12 @@ module Temescal
       message = "\n#{@error.class}: #{@error.message}\n  "
       message << @error.backtrace.join("\n  ")
       message << "\n\n"
+    end
+
+    # Private: Returns the proper error code for the exception.
+    def set_status
+      return 404 if NOT_FOUND_ERRORS.include? @error.class.to_s
+      @error.respond_to?(:http_status) ? @error.http_status : 500
     end
   end
 end

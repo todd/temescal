@@ -1,5 +1,8 @@
 require "spec_helper"
 
+require "active_record"
+require "sinatra"
+
 describe Temescal::Middleware do
   context "Ok response" do
     let(:app) { ->(env) { [200, env, "app" ] } }
@@ -84,6 +87,28 @@ describe Temescal::Middleware do
 
         json = JSON.parse(response.first)["meta"]
         expect(json["message"]).to eq "An error has occured - we'll get on it right away!"
+      end
+    end
+
+    context "with a Sinatra::NotFound error" do
+      it "should build a response with a 404 status code" do
+        app = ->(env) { raise Sinatra::NotFound.new }
+        middleware = Temescal::Middleware.new(app)
+
+        code, _, _ = middleware.call env_for("http://foobar.com")
+
+        expect(code).to eq 404
+      end
+    end
+
+    context "with an ActiveRecord::RecordNotFound error" do
+      it "should build a response with a 404 status code" do
+        app = ->(env) { raise ActiveRecord::RecordNotFound.new }
+        middleware = Temescal::Middleware.new(app)
+
+        code, _, _ = middleware.call env_for("http://foobar.com")
+
+        expect(code).to eq 404
       end
     end
   end
