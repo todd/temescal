@@ -5,18 +5,16 @@ module Temescal
 
     # Public: Builds a response body for the Rack response.
     #
-    # status    - The HTTP status code of the response.
-    # exception - The caught exception.
-    # message   - The error message.
+    # error - The Temescal::Error object representing the caught exception.
     #
     # Returns an Array containing a JSON string as the response body.
-    def self.build(status, exception, message)
+    def self.build(error)
       [
         {
           meta: {
-            status:  status,
-            error:   exception.class.to_s,
-            message: message
+            status:  error.status,
+            error:   error.type,
+            message: error.message
           }
         }.to_json
       ]

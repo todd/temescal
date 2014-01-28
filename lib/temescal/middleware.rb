@@ -1,7 +1,5 @@
 module Temescal
   class Middleware
-    NOT_FOUND_ERRORS = ["ActiveRecord::RecordNotFound", "Sinatra::NotFound"]
-
     # Public: Initializes the middleware.
     #
     # app   - The Rack application.
@@ -23,40 +21,26 @@ module Temescal
     def call(env)
       begin
         @status, @headers, @response = @app.call(env)
-      rescue => error
+      rescue => exception
         raise if configuration.raise_errors?
 
-        @error  = error
-        message = configuration.default_message || @error.message
+        error = Error.new(exception)
 
-        $stderr.print formatted_error
-        configuration.monitors.each { |monitor| monitor.report(@error) }
+        $stderr.print error.formatted
+        configuration.monitors.each { |monitor| monitor.report(exception) }
 
-        @status   = set_status
-        @response = Response.build(@status, @error, message)
-        @headers  = { "Content-Type"   => "application/json" }
+        @status   = error.status
+        @response = Response.build(error)
+        @headers  = { "Content-Type" => "application/json" }
       end
       [@status, @headers, @response]
     end
 
     private
 
-    # Private: Getter for middleware configuration.
+    # Private: Getter for Temescal configuration.
     def configuration
-      @_configuration ||= Configuration.new
-    end
-
-    # Private: Formats the exception for logging.
-    def formatted_error
-      message = "\n#{@error.class}: #{@error.message}\n  "
-      message << @error.backtrace.join("\n  ")
-      message << "\n\n"
-    end
-
-    # Private: Returns the proper error code for the exception.
-    def set_status
-      return 404 if NOT_FOUND_ERRORS.include? @error.class.to_s
-      @error.respond_to?(:http_status) ? @error.http_status : 500
+      $_temescal_configuration ||= Configuration.new
     end
   end
 end

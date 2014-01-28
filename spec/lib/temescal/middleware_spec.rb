@@ -1,9 +1,10 @@
 require "spec_helper"
 
-require "active_record"
-require "sinatra"
-
 describe Temescal::Middleware do
+  before do
+    $_temescal_configuration = nil
+  end
+
   context "Ok response" do
     let(:app) { ->(env) { [200, env, "app" ] } }
 

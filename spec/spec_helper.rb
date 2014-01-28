@@ -1,20 +1,23 @@
-if ENV['CI']
-  require 'coveralls'
+if ENV["CI"]
+  require "coveralls"
   Coveralls.wear!
 else
-  require 'awesome_print'
-  require 'pry-debugger'
+  require "awesome_print"
+  require "pry-debugger"
 
-  require 'simplecov'
+  require "simplecov"
   SimpleCov.start
 end
 
-require 'rack'
+require "rack"
 
-require 'airbrake'
-require 'newrelic_rpm'
+require "airbrake"
+require "newrelic_rpm"
 
-require 'temescal'
+require "active_record"
+require "sinatra"
+
+require "temescal"
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -25,5 +28,5 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = 'random'
+  config.order = "random"
 end
