@@ -31,7 +31,7 @@ module Temescal
 
     # Public: Formats the exception for logging.
     #
-    # Returns a String containing the relevant exception information for to log
+    # Returns a String containing the relevant exception information to log
     # via STDERR.
     def formatted
       message = "\n#{@exception.class}: #{@exception.message}\n  "
