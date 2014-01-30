@@ -26,8 +26,10 @@ module Temescal
 
         error = Error.new(exception)
 
-        $stderr.print error.formatted
-        configuration.monitors.each { |monitor| monitor.report(exception) }
+        unless configuration.ignored_errors.include? exception.class
+          $stderr.print error.formatted
+          configuration.monitors.each { |monitor| monitor.report(exception) }
+        end
 
         @status   = error.status
         @response = Response.build(error)

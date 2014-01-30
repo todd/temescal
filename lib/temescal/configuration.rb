@@ -4,6 +4,9 @@ module Temescal
     # Public: Getter for monitors array.
     attr_reader :monitors
 
+    # Public: Getter for ignored errors array.
+    attr_reader :ignored_errors
+
     # Public: Setter for raise_errors option.
     attr_writer :raise_errors
 
@@ -15,6 +18,7 @@ module Temescal
     # Returns a new Configuration object.
     def initialize
       @monitors = []
+      @ignored_errors = []
     end
 
     # Public: Setter for monitors option.
@@ -40,6 +44,10 @@ module Temescal
     # running in a test environment, false otherwise.
     def raise_errors?
       @raise_errors == true || ENV["RACK_ENV"] == "test"
+    end
+
+    def ignored_errors=(*errors)
+      @ignored_errors = errors.flatten
     end
 
     private

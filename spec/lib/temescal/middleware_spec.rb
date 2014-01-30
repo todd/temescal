@@ -34,6 +34,7 @@ describe Temescal::Middleware do
     let(:middleware) do
       Temescal::Middleware.new(app) do |config|
         config.monitors = :new_relic
+        config.ignored_errors = TypeError
       end
     end
 
@@ -110,6 +111,27 @@ describe Temescal::Middleware do
         code, _, _ = middleware.call env_for("http://foobar.com")
 
         expect(code).to eq 404
+      end
+    end
+
+    context "with ignore_errors set" do
+      let(:middleware) do
+        Temescal::Middleware.new(app) do |config|
+          config.ignored_errors = StandardError, TypeError
+          config.monitors = :new_relic
+        end
+      end
+
+      it "should not log an ignored error type" do
+        expect($stderr).to_not receive(:print).with(an_instance_of String)
+
+        middleware.call env_for("http://foobar.com")
+      end
+
+      it "should not report an ignored error type" do
+        expect(Temescal::Monitors::NewRelic).to_not receive(:report).with(an_instance_of StandardError)
+
+        middleware.call env_for("http://foobar.com")
       end
     end
   end
