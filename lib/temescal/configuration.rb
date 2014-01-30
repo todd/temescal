@@ -46,6 +46,9 @@ module Temescal
       @raise_errors == true || ENV["RACK_ENV"] == "test"
     end
 
+    # Public: Setter for ignored_errors option.
+    #
+    # errors - Zero or more Exception classes.
     def ignored_errors=(*errors)
       @ignored_errors = errors.flatten
     end
