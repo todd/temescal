@@ -26,7 +26,7 @@ module Temescal
 
         error = Error.new(exception)
 
-        unless configuration.ignored_errors.include? exception.class
+        unless error.ignore?
           $stderr.print error.formatted
           configuration.monitors.each { |monitor| monitor.report(exception) }
         end

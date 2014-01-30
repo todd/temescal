@@ -61,4 +61,19 @@ describe Temescal::Error do
       expect(error.type).to eq "StandardError"
     end
   end
+
+  context "#ignore?" do
+    before do
+      Temescal::Configuration.any_instance.stub(:ignored_errors).and_return([TypeError])
+    end
+
+    it "should return true if the exception type is configured as an ignored error" do
+      error = Temescal::Error.new(TypeError.new)
+      expect(error.ignore?).to be_true
+    end
+
+    it "should return false if the exception type is not an ignored error" do
+      expect(error.ignore?).to be_false
+    end
+  end
 end

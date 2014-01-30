@@ -46,6 +46,18 @@ module Temescal
       @exception.class.to_s
     end
 
+    # Public: Determines whether an exception should be silenced.
+    #
+    # Returns true if the error type is configured as an ignored error, false
+    # otherwise.
+    def ignore?
+      configuration.ignored_errors.each do |error|
+        return true if @exception.is_a? error
+      end
+
+      false
+    end
+
     private
 
     # Private: Getter for Temescal configuration.
