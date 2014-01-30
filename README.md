@@ -49,7 +49,7 @@ Temescal provides several configuration options for you. You can set these optio
 
 `default_message` to set an all-encompasing message to use in responses instead of the exception's message. Takes a string.
 
-`ignored_errors` to set which exception types you'd like to not be reported to a monitor or logged. It takes the class names of the exceptions you'd like ignored.
+`ignored_errors` to set which exception types you'd like to not be reported to a monitor or logged. Specified errors will still have error responses built, but they won't trigger any sort of logging. It takes the class names of the exceptions you'd like ignored.
 
 ## License
 Copyright 2013-2014 Todd Bealmear. See LICENSE for details.
