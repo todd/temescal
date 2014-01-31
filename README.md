@@ -27,10 +27,10 @@ end
 By default, Temescal will render a JSON response formatted as such (using StandardError with a message of "Foobar" as an example):
 ```json
 {
-  meta: {
-    status: 500,
-    error: "StandardError",
-    message: "Foobar"
+  "meta": {
+    "status": 500,
+    "error": "StandardError",
+    "message": "Foobar"
   }
 }
 ```
