@@ -4,8 +4,8 @@ $:.unshift File.expand_path('../lib', __FILE__)
 require 'temescal/version'
 
 Gem::Specification.new do |spec|
-  spec.add_dependency 'rack'
-  spec.add_development_dependency 'bundler'
+  spec.add_dependency 'rack', '~> 1.0'
+  spec.add_development_dependency 'bundler', '~> 1.0'
 
   spec.authors       = ['Todd Bealmear']
   spec.description   = %q{Rack Middleware for gracefully handling exceptions for JSON APIs.}
