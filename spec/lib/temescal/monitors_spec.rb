@@ -26,4 +26,12 @@ describe Temescal::Monitors do
       Temescal::Monitors::NewRelic.report exception
     end
   end
+
+  context 'Bugsnag' do
+    it "should send the exception to Bugsnag when report is called" do
+      expect(Bugsnag).to receive(:notify).with(exception)
+
+      Temescal::Monitors::Bugsnag.report exception
+    end
+  end
 end

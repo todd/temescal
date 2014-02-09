@@ -31,5 +31,15 @@ module Temescal
         ::NewRelic::Agent.notice_error exception
       end
     end
+
+    # Public: Reporting strategy for Bugsnag.
+    class Bugsnag < MonitorsStrategy
+      # Public: Reports an exception to Bugsnag.
+      #
+      # exception - The caught exception.
+      def self.report(exception)
+        ::Bugsnag.notify exception
+      end
+    end
   end
 end

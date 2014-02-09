@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    temescal (0.1.1)
+    temescal (0.1.2)
       rack
 
 GEM
@@ -28,6 +28,9 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     awesome_print (1.2.0)
+    bugsnag (1.8.4)
+      httparty (>= 0.6, < 1.0)
+      multi_json (~> 1.0)
     builder (3.1.4)
     coderay (1.1.0)
     columnize (0.3.6)
@@ -43,10 +46,15 @@ GEM
     girl_friday (0.11.1)
       connection_pool (~> 0.9.0)
       rubinius-actor
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
+    json (1.8.1)
     method_source (0.8.2)
     minitest (4.7.5)
     multi_json (1.8.2)
+    multi_xml (0.5.5)
     newrelic_rpm (3.6.8.164)
     pry (0.9.12.4)
       coderay (~> 1.0)
@@ -92,6 +100,7 @@ DEPENDENCIES
   activerecord
   airbrake
   awesome_print
+  bugsnag
   bundler
   newrelic_rpm
   pry

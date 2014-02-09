@@ -13,6 +13,7 @@ require "rack"
 
 require "airbrake"
 require "newrelic_rpm"
+require "bugsnag"
 
 require "active_record"
 require "sinatra"

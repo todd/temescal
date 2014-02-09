@@ -7,6 +7,7 @@ gem 'rake'
 # Monitor Gems
 gem 'airbrake'
 gem 'newrelic_rpm'
+gem 'bugsnag'
 
 group :development, :test do
   gem 'pry'
