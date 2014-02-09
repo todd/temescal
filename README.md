@@ -36,14 +36,22 @@ By default, Temescal will render a JSON response formatted as such (using Standa
 ```
 Temescal will also log the error for you through STDERR.
 ## Monitors
-Though Temescal will log an error for you, it won't necessarily be picked up by your monitoring solution of choice in a production environment. Luckily, Temescal provides integration with popular monitoring services. At the moment, only two (Airbrake, New Relic) are supported, but more will be added if there's a need. If you use a different monitoring service that you'd like to see supported, pull requests are more than welcome!
+Though Temescal will log an error for you, it won't necessarily be picked up by your monitoring solution of choice in a production environment. Luckily, Temescal provides integration with popular monitoring services.
+
+The services currently supported are:
+
+* [Airbrake](https://airbrake.io/)
+* [Bugsnag](https://bugsnag.com/)
+* [New Relic](http://newrelic.com/)
+
+If you use a different monitoring service that you'd like to see supported, feel free to submit an issue. Better yet, pull requests are more than welcome!
 
 Note that you'll need the gem for your monitor installed and configured for your application in order for Temescal to properly work with it.
 
 ## Configuration
 Temescal provides several configuration options for you. You can set these options when configuring the middleware for your application.
 
-`monitors` to set the monitors you'd like to use with Temescal. It takes symbols of monitor names (currently `:airbrake` and `:new_relic`).
+`monitors` to set the monitors you'd like to use with Temescal. It takes symbols of monitor names (currently `:airbrake`, `:bugsnag`, and `:new_relic`).
 
 `raise_errors` to set whether you'd like to override Temescal and raise all errors without rendering a Temescal response. Set to `true` to enable.
 
