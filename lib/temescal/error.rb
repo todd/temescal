@@ -1,6 +1,6 @@
 module Temescal
   class Error
-    NOT_FOUND_ERRORS = ["ActiveRecord::RecordNotFound", "Sinatra::NotFound"]
+    NOT_FOUND_ERRORS = %w(ActiveRecord::RecordNotFound Sinatra::NotFound)
 
     # Public: Instantiates a new Error.
     #

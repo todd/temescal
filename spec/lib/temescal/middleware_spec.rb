@@ -12,7 +12,7 @@ describe Temescal::Middleware do
       Temescal::Middleware.new(app)
     end
 
-    it "should render the application's response" do
+    it "renders the application's response" do
       code, _, _ = middleware.call env_for('http://foobar.com')
 
       expect(code).to eq 200
@@ -38,13 +38,13 @@ describe Temescal::Middleware do
       end
     end
 
-    it "should respond with a 500 if the exception does not have a http_status attribute" do
+    it "responds with a 500 if the exception does not have a http_status attribute" do
       code, _, _ = middleware.call env_for("http://foobar.com")
 
       expect(code).to eq 500
     end
 
-    it "should respond with the appropriate status if the exception has a http_status attribute" do
+    it "responds with the appropriate status if the exception has a http_status attribute" do
       StandardError.any_instance.stub(:http_status).and_return(403)
 
       code, _, _ = middleware.call env_for("http://foobar.com")
@@ -52,13 +52,13 @@ describe Temescal::Middleware do
       expect(code).to eq 403
     end
 
-    it "should set the correct content type header" do
+    it "sets the correct content type header" do
       _, headers, _ = middleware.call env_for("http://foobar.com")
 
       expect(headers["Content-Type"]).to eq "application/json"
     end
 
-    it "should render a JSON response for the error" do
+    it "renders a JSON response for the error" do
       _, _, response = middleware.call env_for("http://foobar.com")
 
       json = JSON.parse(response.first)["meta"]
@@ -67,20 +67,20 @@ describe Temescal::Middleware do
       expect(json["message"]).to eq "Foobar"
     end
 
-    it "should log the error" do
+    it "logs the error" do
       expect($stderr).to receive(:print).with(an_instance_of String)
 
       middleware.call env_for("http://foobar.com")
     end
 
-    it "should report the error to the specified monitors" do
+    it "reports the error to the specified monitors" do
       expect(Temescal::Monitors::NewRelic).to receive(:report).with(an_instance_of StandardError)
 
       middleware.call env_for("http://foobar.com")
     end
 
     context "with default_message set" do
-      it "should build a response with the specified message instead of the exception message" do
+      it "builds a response with the specified message instead of the exception message" do
         middleware = Temescal::Middleware.new(app) do |config|
           config.default_message = "An error has occured - we'll get on it right away!"
         end
@@ -93,7 +93,7 @@ describe Temescal::Middleware do
     end
 
     context "with a Sinatra::NotFound error" do
-      it "should build a response with a 404 status code" do
+      it "builds a response with a 404 status code" do
         app = ->(env) { raise Sinatra::NotFound.new }
         middleware = Temescal::Middleware.new(app)
 
@@ -104,7 +104,7 @@ describe Temescal::Middleware do
     end
 
     context "with an ActiveRecord::RecordNotFound error" do
-      it "should build a response with a 404 status code" do
+      it "builds a response with a 404 status code" do
         app = ->(env) { raise ActiveRecord::RecordNotFound.new }
         middleware = Temescal::Middleware.new(app)
 
@@ -122,13 +122,13 @@ describe Temescal::Middleware do
         end
       end
 
-      it "should not log an ignored error type" do
+      it "does not log an ignored error type" do
         expect($stderr).to_not receive(:print).with(an_instance_of String)
 
         middleware.call env_for("http://foobar.com")
       end
 
-      it "should not report an ignored error type" do
+      it "does not report an ignored error type" do
         expect(Temescal::Monitors::NewRelic).to_not receive(:report).with(an_instance_of StandardError)
 
         middleware.call env_for("http://foobar.com")
@@ -149,7 +149,7 @@ describe Temescal::Middleware do
       end
     end
 
-    it "should raise the error" do
+    it "raises the error" do
       expect { middleware.call env_for("http://foobar.com") }.to raise_error StandardError
     end
   end
