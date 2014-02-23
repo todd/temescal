@@ -10,6 +10,9 @@ module Temescal
     # Public: Setter for raise_errors option.
     attr_writer :raise_errors
 
+    # Public: Setter for meta_key option.
+    attr_writer :meta_key
+
     # Public: Getter/Setter for default JSON message.
     attr_accessor :default_message
 
@@ -51,6 +54,13 @@ module Temescal
     # errors - Zero or more Exception classes.
     def ignored_errors=(*errors)
       @ignored_errors = errors.flatten
+    end
+
+    # Public: Getter for meta_key option.
+    #
+    # Returns the meta_key option or simply "meta" if null.
+    def meta_key
+      @meta_key || "meta"
     end
 
     private

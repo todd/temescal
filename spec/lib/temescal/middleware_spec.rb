@@ -134,6 +134,22 @@ describe Temescal::Middleware do
         middleware.call env_for("http://foobar.com")
       end
     end
+
+    context "with custom meta key set" do
+      let(:middleware) do
+        Temescal::Middleware.new(app) do |config|
+          config.meta_key = "not_meta"
+        end
+      end
+
+      it "builds a response with the custom key" do
+        _, _, response = middleware.call env_for("http://foobar.com")
+
+        response = JSON.parse(response.first)
+
+        expect(response["not_meta"]).to_not be_nil
+      end
+    end
   end
 
   context "Override middleware to raise exception" do

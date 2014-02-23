@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 module Temescal
   module Response
@@ -11,7 +11,7 @@ module Temescal
     def self.build(error)
       [
         {
-          meta: {
+          $_temescal_configuration.meta_key => {
             status:  error.status,
             error:   error.type,
             message: error.message
