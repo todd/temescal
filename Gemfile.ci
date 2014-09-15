@@ -13,6 +13,6 @@ gem 'activerecord', '>= 3.2.7'
 gem 'sinatra'
 
 group :ci do
-  gem 'rspec'
+  gem 'rspec', '~> 2.14'
   gem 'coveralls', require: false
 end
