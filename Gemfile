@@ -8,6 +8,7 @@ gem 'rake'
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'bugsnag'
+gem 'honeybadger'
 
 group :development, :test do
   gem 'pry'

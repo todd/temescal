@@ -14,6 +14,7 @@ require "rack"
 require "airbrake"
 require "newrelic_rpm"
 require "bugsnag"
+require "honeybadger"
 
 require "active_record"
 require "sinatra"

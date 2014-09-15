@@ -42,4 +42,14 @@ describe Temescal::Monitors do
       end
     end
   end
+
+    context 'Honeybadger' do
+    describe '.report' do
+      it "sends the exception to Honeybadger" do
+        expect(Honeybadger).to receive(:notify).with(exception)
+
+        Temescal::Monitors::Honeybadger.report exception
+      end
+    end
+  end
 end

@@ -41,5 +41,15 @@ module Temescal
         ::Bugsnag.notify exception
       end
     end
+
+    # Public: Reporting strategy for Honeybadger.
+    class Honeybadger < MonitorsStrategy
+      # Public: Reports an exception to Honeybadger.
+      #
+      # exception - The caught exception.
+      def self.report(exception)
+        ::Honeybadger.notify exception
+      end
+    end
   end
 end

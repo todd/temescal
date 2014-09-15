@@ -43,6 +43,7 @@ The services currently supported are:
 * [Airbrake](https://airbrake.io/)
 * [Bugsnag](https://bugsnag.com/)
 * [New Relic](http://newrelic.com/)
+* [Honeybadger](https://www.honeybadger.io/)
 
 If you use a different monitoring service that you'd like to see supported, feel free to submit an issue. Better yet, pull requests are more than welcome!
 
@@ -51,7 +52,7 @@ Note that you'll need the gem for your monitor installed and configured for your
 ## Configuration
 Temescal provides several configuration options for you. You can set these options when configuring the middleware for your application.
 
-`monitors` to set the monitors you'd like to use with Temescal. It takes symbols of monitor names (currently `:airbrake`, `:bugsnag`, and `:new_relic`).
+`monitors` to set the monitors you'd like to use with Temescal. It takes symbols of monitor names (currently `:airbrake`, `:bugsnag`, `:new_relic`, and `:honeybadger`).
 
 `raise_errors` to set whether you'd like to override Temescal and raise all errors without rendering a Temescal response. Set to `true` to enable.
 

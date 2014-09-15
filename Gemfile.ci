@@ -8,6 +8,7 @@ gem 'rake'
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'bugsnag'
+gem 'honeybadger'
 
 gem 'activerecord', '>= 3.2.7'
 gem 'sinatra'
