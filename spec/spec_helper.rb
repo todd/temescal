@@ -3,7 +3,7 @@ if ENV["CI"]
   Coveralls.wear!
 else
   require "awesome_print"
-  require "pry-debugger"
+  require "pry-byebug"
 
   require "simplecov"
   SimpleCov.start
@@ -22,7 +22,6 @@ require "sinatra"
 require "temescal"
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
 

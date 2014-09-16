@@ -12,7 +12,7 @@ describe Temescal::Error do
 
   describe "#message" do
     it "returns the configured default message if it is set in the configuration" do
-      Temescal::Configuration.any_instance.stub(:default_message).and_return("Some other message.")
+      allow_any_instance_of(Temescal::Configuration).to receive(:default_message).and_return("Some other message.")
 
       expect(error.message).to eq "Some other message."
     end
@@ -38,7 +38,7 @@ describe Temescal::Error do
     end
 
     it "returns the exception's status code if assigned" do
-      exception.stub(:http_status).and_return(403)
+      allow(exception).to receive(:http_status).and_return(403)
 
       expect(error.status).to eq 403
     end
@@ -50,7 +50,7 @@ describe Temescal::Error do
 
   describe "#formatted" do
     it "returns a String formatted for log output" do
-      exception.stub(:backtrace).and_return(["Line 1", "Line 2"])
+      allow(exception).to receive(:backtrace).and_return(["Line 1", "Line 2"])
 
       expect(error.formatted).to eq "\nStandardError: Foobar\n  Line 1\n  Line 2\n\n"
     end
@@ -64,16 +64,16 @@ describe Temescal::Error do
 
   describe "#ignore?" do
     before do
-      Temescal::Configuration.any_instance.stub(:ignored_errors).and_return([TypeError])
+      allow_any_instance_of(Temescal::Configuration).to receive(:ignored_errors).and_return([TypeError])
     end
 
     it "returns true if the exception type is configured as an ignored error" do
       error = Temescal::Error.new(TypeError.new)
-      expect(error.ignore?).to be_true
+      expect(error.ignore?).to be true
     end
 
     it "returns false if the exception type is not an ignored error" do
-      expect(error.ignore?).to be_false
+      expect(error.ignore?).to be false
     end
   end
 end

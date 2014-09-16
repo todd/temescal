@@ -14,7 +14,7 @@ describe Temescal::Monitors do
   context "Airbrake" do
     describe '.report' do
       it "sends the exception to Airbrake" do
-        Airbrake.stub(:send_notice)
+        allow(Airbrake).to receive(:send_notice)
 
         expect(Airbrake).to receive(:notify).with(exception)
 

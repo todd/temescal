@@ -21,8 +21,8 @@ describe Temescal::Middleware do
 
   context "Bad response" do
     before do
-      Temescal::Monitors::NewRelic.stub(:report)
-      $stderr.stub(:print)
+      allow(Temescal::Monitors::NewRelic).to receive(:report)
+      allow($stderr).to receive(:print)
 
       # Travis automatically sets RACK_ENV=test
       # Need to override for tests to run correctly.
@@ -45,7 +45,7 @@ describe Temescal::Middleware do
     end
 
     it "responds with the appropriate status if the exception has a http_status attribute" do
-      StandardError.any_instance.stub(:http_status).and_return(403)
+      allow_any_instance_of(StandardError).to receive(:http_status).and_return(403)
 
       code, _, _ = middleware.call env_for("http://foobar.com")
 
@@ -154,7 +154,7 @@ describe Temescal::Middleware do
 
   context "Override middleware to raise exception" do
     before do
-      $stderr.stub(:print)
+      allow($stderr).to receive(:print)
     end
 
     let(:app) { ->(env) { raise StandardError.new("Foobar") } }
