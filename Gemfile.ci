@@ -7,7 +7,7 @@ gem 'rake'
 # Monitor Gems
 gem 'airbrake', '~> 4.1'
 gem 'newrelic_rpm', '~> 3.9'
-gem 'bugsnag', '~> 2.4'
+gem 'bugsnag', '~> 2.5'
 gem 'honeybadger', '~> 1.16'
 
 gem 'activerecord', '>= 3.2'
