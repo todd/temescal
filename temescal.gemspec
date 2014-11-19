@@ -4,6 +4,8 @@ $:.unshift File.expand_path('../lib', __FILE__)
 require 'temescal/version'
 
 Gem::Specification.new do |spec|
+  spec.required_ruby_version = '>= 1.9.3'
+
   spec.add_dependency 'rack', '~> 1.0'
   spec.add_development_dependency 'bundler', '~> 1.0'
 
