@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    temescal (0.1.4)
+    temescal (0.1.5)
       rack (~> 1.0)
 
 GEM
@@ -57,7 +57,7 @@ GEM
     pry-byebug (2.0.0)
       byebug (~> 3.4)
       pry (~> 0.10)
-    rack (1.5.2)
+    rack (1.6.0)
     rack-protection (1.5.3)
       rack
     rake (10.3.2)
