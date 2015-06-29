@@ -57,7 +57,7 @@ GEM
     pry-byebug (2.0.0)
       byebug (~> 3.4)
       pry (~> 0.10)
-    rack (1.6.0)
+    rack (1.6.4)
     rack-protection (1.5.3)
       rack
     rake (10.3.2)
@@ -105,3 +105,6 @@ DEPENDENCIES
   simplecov
   sinatra (~> 1.4)
   temescal!
+
+BUNDLED WITH
+   1.10.3
